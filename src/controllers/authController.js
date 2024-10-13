@@ -8,7 +8,7 @@ const port = process.env.PORT;
 const redirect_uri = `http://localhost:${port}/auth/listen`;
 
 exports.login = (req, res) => {
-    const state = '12345';
+    const state = generateState();
     const scope = 'user-read-private user-read-email';
 
     res.redirect('https://accounts.spotify.com/authorize?' +
@@ -86,4 +86,16 @@ exports.refreshAccessToken = async (req, res) => {
     } catch (error) {
         res.status(500).send('Could not refresh access token');
     }
+}
+
+const generateState = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    state = '';
+
+    for (let i = 0; i < 15; ++i) {
+        state += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return state;
 }
