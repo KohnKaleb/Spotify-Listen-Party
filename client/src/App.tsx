@@ -1,22 +1,20 @@
 import React, {useEffect} from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './Components/Login';
+import Home from './Components/Home';
+import Room from './Components/Room';
+
 import './App.css';
 
 function App() {
-  const fetchLogin = async () => {
-    window.location.href = 'http://localhost:3001/login';
-  }
-
-  useEffect(() => {
-  })
-
-
   return (
-    <div>
-      <button onClick={() => fetchLogin()}>
-        Login to Spotify
-      </button>
-      <h1>Welcome Test1</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='home' element={<Home />} />
+        <Route path='room' element={<Room />} />
+      </Routes>
+    </Router>
   );
 };
 
